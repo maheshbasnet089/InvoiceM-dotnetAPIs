@@ -9,6 +9,7 @@ namespace EfCore.Data;
 
 public class InvoiceDbContext(DbContextOptions<InvoiceDbContext> options): DbContext(options){
     public DbSet<Invoice> Invoices => Set<Invoice>(); 
+    public DbSet<Invoicess> Invoicesses => Set<Invoicess>(); 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Invoice>().HasData(
