@@ -23,9 +23,11 @@ namespace Efcore_dotnet.Controllers
 
         // GET: api/Invoice
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices()
+        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices(int page=1, int pageSize = 10, InvoiceStatus? status = null)
         {
-            return await _context.Invoices.ToListAsync();
+            return await _context.Invoices.AsQueryable().Where(x=>status== null || x.Status == status).OrderByDescending(x=>x.InvoiceDate).Skip((page-1) & pageSize)
+            .Take(pageSize)
+            .ToListAsync();
         }
 
         // GET: api/Invoice/5
@@ -47,10 +49,18 @@ namespace Efcore_dotnet.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutInvoice(Guid id, Invoice invoice)
         {
-            if (id != invoice.Id)
-            {
-                return BadRequest();
+            var invoiceToUpdate = await _context.Invoices.FindAsync(id); 
+            if (invoiceToUpdate ==null){
+                return NotFound();
             }
+            invoiceToUpdate.InvoiceNumber = invoice.InvoiceNumber; 
+            invoiceToUpdate.ContactName = invoice.ContactName; 
+            invoiceToUpdate.Description = invoice.Description; 
+            invoiceToUpdate.Amount = invoice.Amount; 
+            invoiceToUpdate.InvoiceDate = invoice.InvoiceDate; 
+            invoiceToUpdate.DueDate = invoice.DueDate; 
+            invoiceToUpdate.Status = invoice.Status; 
+            await _context.SaveChangesAsync(); 
 
             _context.Entry(invoice).State = EntityState.Modified;
 
