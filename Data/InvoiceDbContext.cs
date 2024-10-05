@@ -10,9 +10,10 @@ namespace EfCore.Data;
 public class InvoiceDbContext(DbContextOptions<InvoiceDbContext> options): DbContext(options){
     public DbSet<Invoice> Invoices => Set<Invoice>(); 
     public DbSet<Invoicess> Invoicesses => Set<Invoicess>(); 
+    public DbSet<InvoiceItem> InvoiceItems => Set<InvoiceItem>();
 protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ConfigureInvoice();
+        // modelBuilder.ConfigureInvoice();
         // modelBuilder.Entity<Invoice>().HasData(
         //     new Invoice{
         //         Id = Guid.NewGuid(), 

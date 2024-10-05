@@ -48,6 +48,8 @@ public class Invoicess{
     [Column(name:"DueDate", TypeName ="datetimeoffset")]
     public DateTimeOffset DueDate{get;set;}
 
+    public List<InvoiceItem> InvoiceItems {get;set;} = new(); 
+
 }
 
 public enum InvoiceStatus{
