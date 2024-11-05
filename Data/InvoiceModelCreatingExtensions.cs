@@ -19,5 +19,6 @@ public static class InvoiceModelCreatingExtensions{
                 v => v.ToString(),
                 v=>(InvoiceStatus)Enum.Parse(typeof(InvoiceStatus),v));
         });
+
     }
 }

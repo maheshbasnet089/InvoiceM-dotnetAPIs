@@ -12,5 +12,6 @@ public class InvoiceItemConfiguration:IEntityTypeConfiguration<InvoiceItem>{
         builder.Property(p=>p.UnitPrice).HasColumnName(nameof(InvoiceItem.UnitPrice)).HasPrecision(8,2); 
         builder.Property(p=>p.Amount).HasColumnName(nameof(InvoiceItem.Amount)).HasPrecision(18,2); 
         builder.Property(p=>p.InvoiceId).HasColumnName(nameof(InvoiceItem.InvoiceId));
+     
     }
 }
